@@ -23,7 +23,7 @@
 version: '3.8'
 services:
   bypy_backup:
-    image: glwhappen/baibackup:1.1
+    image: glwhappen/baibackup:latest
     volumes:
       - ./backup:/root/backup # 需要自动备份的本地目录
       - ./.bypy:/root/.bypy # 百度网盘授权文件夹，如果为空，需要自己进入容器，输入bypy info 进行授权登录
