@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  bypy_backup:
+    build: .
+    # image: glwhappen/baibackup:1.1
+    volumes:
+      - ./backup:/root/backup
+      - ./.bypy:/root/.bypy
+      - ./logs:/app/logs  # 挂载日志目录
+    environment:
+      - REMOTE_DIR=/remote/linux/test1
+      - CRON_SCHEDULE=* * * * *
+      - TIME_FILE=+%Y%m%d%H%M%S # +%Y%m%d-%H%M%S
+      - ON_DUP=overwrite # overwrite skip
