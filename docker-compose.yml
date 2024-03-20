@@ -3,11 +3,11 @@ services:
   baibackup:
     build: .
     volumes:
-      - ./backup:/root/backup
-      - ./.bypy:/root/.bypy
+      - ./backup:/root/backup # 需要自动备份的本地目录
+      - ./.bypy:/root/.bypy # 百度网盘授权文件夹，如果为空，需要自己进入容器，输入bypy info 进行授权登录
       - ./logs:/app/logs  # 挂载日志目录
     environment:
-      - REMOTE_DIR=/remote/linux/test1
-      - CRON_SCHEDULE=* * * * *
+      - REMOTE_DIR=/remote/linux/test1 # 百度网盘远程的位置: 我的应用数据/bypy/remote/linux/test1
+      - CRON_SCHEDULE=* * * * * # 自动备份时间 每分钟备份
       - TIME_FILE=+%Y%m%d%H%M%S # +%Y%m%d-%H%M%S
       - ON_DUP=overwrite # overwrite skip

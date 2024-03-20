@@ -34,7 +34,7 @@ services:
       - ./.bypy:/root/.bypy # 百度网盘授权文件夹，如果为空，需要自己进入容器，输入bypy info 进行授权登录
       - ./logs:/app/logs  # 挂载日志目录
     environment:
-      - REMOTE_DIR=/remote/linux/test1 # 百度网盘远程的位置
+      - REMOTE_DIR=/remote/linux/test1 # 百度网盘远程的位置: 我的应用数据/bypy/remote/linux/test1
       - CRON_SCHEDULE=* 2 * * * # 自动备份时间 每天晚上2点
       - TIME_FILE=+%Y%m%d%H%M%S # +%Y%m%d-%H%M%S
       - ON_DUP=overwrite # overwrite skip
