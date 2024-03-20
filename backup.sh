@@ -15,7 +15,7 @@ echo "Backup started at $current_time" >> $LOG_FILE
 current_time_file=$(date "$TIME_FILE")
 
 # 构造包含日期时间的远程目录路径
-target_dir="$REMOTE_DIR/$current_time_file"
+target_dir=${REMOTE_DIR/\{TIME_FILE\}/$current_time_file}
 echo "Backup target $target_dir" >> $LOG_FILE
 
 
