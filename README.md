@@ -18,14 +18,16 @@
 
 ## 快速使用
 
-第一次运行以后，需要在docker-compose.yml 所在文件输入`docker compose exec baibackup bypy info` 然后就可以进行百度网盘的登录。
-
-下次移动的时候，包含.bypy文件目录就可以自动登录
+1. 将下面的内容保存到一个英文目录下，名称为 docker-compose.yml。
+2. 编写好对应的配置以后，在目录下输入 `docker compose up -d` 启动。
+3. 在目录下继续输入`docker compose exec baibackup bypy info` 进行百度网盘的登录，会让你访问一个url，然后获取授权码，填入按回车。
+4. 这个时候 `docker compose down` 结束服务，再次输入 `docker compose up -d` 启动。
+5. 下次换设备，携带上.bypy文件目录即可自动登录。
 
 docker-compose.yml 文件内容：
 
 ```yml
-version: '3.8'
+version: '3.3'
 services:
   baibackup:
     image: glwhappen/baibackup:latest
