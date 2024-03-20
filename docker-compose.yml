@@ -1,8 +1,7 @@
 version: '3.8'
 services:
-  bypy_backup:
+  baibackup:
     build: .
-    # image: glwhappen/baibackup:1.1
     volumes:
       - ./backup:/root/backup
       - ./.bypy:/root/.bypy

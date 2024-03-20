@@ -1,28 +1,33 @@
-# 文件夹备份到百度网盘
+# baibackup 本地文件备份到百度网盘
 
-此设置提供了一个Docker容器，用于使用crontab在预定时间执行备份任务。它配置了将文件备份到远程目录的功能，并通过环境变量提供调整计划和备份参数的灵活性。
+使用docker快速将本地文件夹备份，定时自动备份到百度网盘。
+
+## 特点
+
+- 一次登录处处备份。
+- 备份linux下的重要文件。
+- 可以按照时间进行文件夹的管理。
 
 ## 先决条件
 
 - 你的机器上安装了Docker和docker-compose。
-- 一个可用于备份的远程目录。
+- 有个百度网盘账号。
+- 会docker和docker-compose的基础操作。
 
-## 配置
-
-通过环境变量可以自定义备份计划和行为：
-
-- `CRON_SCHEDULE`：定义备份任务应何时运行。默认值为`"* 2 * * *"`，即每天凌晨2点执行任务。
-- `REMOTE_DIR`：指定备份将存储的远程目录路径。
-- `TIME_FILE`：控制附加到备份目录上的时间戳格式，默认为`"+%Y%m%d-%H%M%S"`。
-- `ON_DUP`：确定遇到重复文件时的行为，默认动作为`"overwrite"`（覆盖）。
 
 
 ## 快速使用
 
+第一次运行以后，需要在docker-compose.yml 所在文件输入`docker compose exec baibackup bypy info` 然后就可以进行百度网盘的登录。
+
+下次移动的时候，包含.bypy文件目录就可以自动登录
+
+docker-compose.yml 文件内容：
+
 ```yml
 version: '3.8'
 services:
-  bypy_backup:
+  baibackup:
     image: glwhappen/baibackup:latest
     volumes:
       - ./backup:/root/backup # 需要自动备份的本地目录
@@ -34,3 +39,14 @@ services:
       - TIME_FILE=+%Y%m%d%H%M%S # +%Y%m%d-%H%M%S
       - ON_DUP=overwrite # overwrite skip
 ```
+
+
+## 配置
+
+通过环境变量可以自定义备份计划和行为：
+
+- `CRON_SCHEDULE`：定义备份任务应何时运行。默认值为`"* 2 * * *"`，即每天凌晨2点执行任务。
+- `REMOTE_DIR`：指定备份将存储的远程目录路径。进入百度网盘的 我的应用数据> bypy 即可看到
+  ![](https://raw.githubusercontent.com/glwhappen/images/main/img/202403201901906.png)
+- `TIME_FILE`：控制附加到备份目录上的时间戳格式，默认为`"+%Y%m%d-%H%M%S"`。
+- `ON_DUP`：确定遇到重复文件时的行为，默认动作为`"overwrite"`（覆盖）。
